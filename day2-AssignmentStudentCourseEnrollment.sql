@@ -75,45 +75,42 @@ INSERT INTO Enrollments (enrollment_id, student_id, course_id, enrollment_date) 
 --Questions
 
 --Question:1 Find all students enrolled in the Math course.
-select 
-		s
-	from enrollments e 
-	join courses c on c.course_id =e.course_id --to get course
-	join students s on s.student_id =e.student_id --to get students
-	where c.course_name ='Math'; --to get only math course data
+select s
+	from enrollments e , courses c,students s 
+	where c.course_id =e.course_id 
+	 and s.student_id =e.student_id 
+	and c.course_name ='Math';--to get only math course data
 
 --Question:2 List all courses taken by students named Bob.
-select 
-		c
-	from enrollments e 
-	join courses c on c.course_id =e.course_id  --to get course
-	join students s on s.student_id =e.student_id  -- to get student 
-	where s.student_name ='Bob'; -- to get only sob student data
+select c
+	from enrollments e,  courses c,students s
+	where c.course_id =e.course_id 
+	and s.student_id =e.student_id 
+	and s.student_name ='Bob'; -- to get only sob student data
 
 --Question:3 Find the names of students who are enrolled in more than one course.
 select 
 		s.student_name as StudentName, 
 		count(distinct c.course_id) as TotalCourse
-	from enrollments e 
-	join courses c on c.course_id =e.course_id --to get course
-	join students s on s.student_id =e.student_id --to get student
-	group by s.student_name --to group acording to student name
+	from enrollments e ,courses c ,students s 
+	where c.course_id =e.course_id 
+	and s.student_id =e.student_id 
+	group by s.student_name
 	having count(c.course_id)>1; --to get courses with count greater than 1  
 
 --Question:4 List all students who are in Grade A (grade_id = 1).
 select s 
-	from students s 
-	join grades g --to get grades
-	on g.grade_id =s.student_grade_id
-	where g.grade_name ='A'; -- to get grades with only A
+	from students s ,grades g 
+	where g.grade_id =s.student_grade_id
+	and g.grade_name ='A'; -- to get grades with only A
 
 --Question:5 Find the number of students enrolled in each course.
 select 
 		c.course_name , 
 		count(distinct s.student_id) as TotalStudents --counting students in each group of courses
-	from enrollments e 
-	join courses c on c.course_id =e.course_id --to get course
-	join students s on s.student_id =e.student_id --to get student
+	from enrollments e ,courses c,students s 
+	where c.course_id =e.course_id --to get course
+	and s.student_id =e.student_id --to get student
 	group by c.course_name ; --to group acording to courses name
 
 --Question:6 Retrieve the course with the highest number of enrollments.
@@ -139,9 +136,9 @@ select
 select count(*) from courses c ;--total courses
 select 
 		s
-	from enrollments e 
-	join courses c on c.course_id =e.course_id  --to get courses
-	join students s on s.student_id =e.student_id --to get student
+	from enrollments e ,courses c,students s
+	where c.course_id =e.course_id  
+	and s.student_id =e.student_id 
 	group by s --grouped by students
 	having count(distinct c.course_id)=(select count(distinct c.course_id) from courses c);--to get data count of course in 
 																		--each grouped student equal to count of distint course
@@ -155,17 +152,17 @@ select s from students s -- getting all students
 except  
 select --geting student that is referenced in enrollment table
 		s
-	from enrollments e 
-	join students s on s.student_id =e.student_id;
+	from enrollments e ,students s 
+	where s.student_id =e.student_id;
 
 
 --Question:9 Retrieve the average age of students enrolled in the Science course.
 select 
 		avg(s.student_age) as average_age_of_students_enrolled_in_the_Science_course
-	from enrollments e 
-	join courses c on c.course_id =e.course_id --get course
-	join students s on s.student_id =e.student_id --get student
-	where c.course_name ='Science' --getting only data with course science
+	from enrollments e ,courses c, students s
+	where c.course_id =e.course_id 
+	and s.student_id =e.student_id 
+	and c.course_name ='Science' --getting only data with course science
 	group by c.course_name;-- grouping by course
 
 --Question:10 Find the grade of students enrolled in the History course.
@@ -174,11 +171,11 @@ select
 		s.student_name as StudentName,
 		c.course_name as course_name ,
 		g.grade_name as Grade
-	from enrollments e 
-	join courses c on c.course_id =e.course_id  -- to get course
-	join students s on s.student_id =e.student_id-- to get student
-	join  grades g on g.grade_id =s.student_grade_id --to get grade
-	where c.course_name ='History'; -- course with only history
+	from enrollments e,courses c,students s,grades g 
+	where c.course_id =e.course_id   
+	and s.student_id =e.student_id
+	and g.grade_id =s.student_grade_id --to get grade
+	and c.course_name ='History'; -- course with only history
 	
 
 
