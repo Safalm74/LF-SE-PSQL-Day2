@@ -112,7 +112,7 @@ where
 
 --Question:2 List all courses taken by students named Bob.
 select
-	c
+	c.*
 from
 	courses c
 where
