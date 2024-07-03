@@ -116,8 +116,8 @@ select
 --Question:6 Retrieve the course with the highest number of enrollments.
 select 
 	c.course_name as course_with_the_highest_number_of_enrollments
-	from enrollments e 
-	join courses c on c.course_id =e.course_id --to get courses
+	from enrollments e ,courses c 
+	where c.course_id =e.course_id 
 	group by c.course_name  --togroup according to coursename
 	having count(e.enrollment_id)=(-- counting enrollments in each grouped course then getting only with count equal to max enrollments
 		select --here we get max enrollment count from the subquery
@@ -125,9 +125,8 @@ select
 		from (
 			select -- here we get enrollment count for each grouped course
 			count(*) as courseCount
-			from courses c 
-			join enrollments e 
-			on e.course_id =c.course_id 
+			from courses c ,enrollments e 
+			where e.course_id =c.course_id 
 			group by c.course_name
 		)
 	);
@@ -174,7 +173,7 @@ select
 	from enrollments e,courses c,students s,grades g 
 	where c.course_id =e.course_id   
 	and s.student_id =e.student_id
-	and g.grade_id =s.student_grade_id --to get grade
+	and g.grade_id =s.student_grade_id
 	and c.course_name ='History'; -- course with only history
 	
 
