@@ -1,6 +1,5 @@
 Output of BookStore Assignment: 
-(ER Diagram):
-![ER diagram](https://github.com/Safalm74/LF-SE-PSQL-Day2/assets/57723223/0eddea7b-22f0-48c5-900b-ca36f80ebcd2)
+- (ER Diagram):![ER diagram](https://github.com/Safalm74/LF-SE-PSQL-Day2/assets/57723223/0eddea7b-22f0-48c5-900b-ca36f80ebcd2)
 
 Output of Student,Course, enrollment assignment:
 - Find all students enrolled in the Math course. ![Screenshot from 2024-07-03 10-01-02](https://github.com/Safalm74/LF-SE-PSQL-Day2/assets/57723223/6970f498-001d-476b-9621-c1884b9a0380)
